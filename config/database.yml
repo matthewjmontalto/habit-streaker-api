@@ -1,4 +1,4 @@
-<% project_name = 'habit-streaker' %>
+<% project_name = 'habit-streaker-api' %>
 
 default: &default
   adapter: postgresql
