@@ -3,5 +3,5 @@
 class User < ApplicationRecord
   include Authentication
   has_many :examples
-  has_many :habits
+  has_many :habits, dependent: :destroy
 end
