@@ -1,4 +1,4 @@
-class HabitsController < ApplicationController
+class HabitsController < OpenReadController
   before_action :set_habit, only: [:show, :update, :destroy]
 
   # GET /habits
@@ -15,7 +15,8 @@ class HabitsController < ApplicationController
 
   # POST /habits
   def create
-    @habit = Habit.new(habit_params)
+    # @habit = Habit.new(habit_params)
+    @habit = current_user.habits.build(habit_params)
 
     if @habit.save
       render json: @habit, status: :created, location: @habit
@@ -41,11 +42,12 @@ class HabitsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_habit
-      @habit = Habit.find(params[:id])
+      # @habit = Habit.find(params[:id])
+      @habit = current_user.habits.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def habit_params
-      params.require(:habit).permit(:name, :notes, :initial_streak_length, :longest_streak, :current_streak)
+      params.require(:habit).permit(:name, :notes, :initial_streak_length, :longest_streak, :current_streak, :checkins)
     end
 end
